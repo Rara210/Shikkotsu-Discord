@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080817">
+  <meta name="description" content="Join Shikkotsu, a Bloodline community on Roblox. Meet players, share tips, find teammates and connect with the community.">
+  <title>Shikkotsu — Bloodline Roblox Community</title>
+  <style>
+    :root {
+      --bg: #080817; --panel: #11112a; --text: #f7f7ff; --muted: #b8b9d8;
+      --purple: #9b5cff; --pink: #ff6b35; --blue: #ffb347; --line: rgba(255,126,55,.24);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    ::selection { background: #8b5cff; color: #fff; }
+    body:after { content:""; position:fixed; inset:0; pointer-events:none; z-index:20; opacity:.12; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E"); }
+    .halloween-strip { text-align:center; padding:9px 14px; color:#ffe7cc; font-size:12px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; background:linear-gradient(90deg,#251039,#58204b,#35162d); border-bottom:1px solid #ff873955; }
+    .halloween-strip span { display:inline-block; animation: spookyBob 2.8s ease-in-out infinite; }
+    .halloween-strip span:nth-child(2) { animation-delay:-1.2s; }
+    .halloween-badge { display:inline-flex; align-items:center; gap:7px; margin-top:12px; padding:7px 12px; border:1px solid #ff873977; border-radius:999px; color:#ffc078; background:#ff792012; font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    @keyframes spookyBob { 0%,100% { transform:translateY(0) rotate(-4deg); } 50% { transform:translateY(-3px) rotate(4deg); } }
+    .scroll-progress { position:fixed; top:0; left:0; height:3px; width:0; z-index:30; background:linear-gradient(90deg,var(--blue),var(--pink),var(--purple)); box-shadow:0 0 14px #ff7b35; }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .image-frame { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:#11112a; box-shadow:0 22px 70px #0006; }
+    .image-frame img { display:block; width:100%; height:100%; min-height:260px; object-fit:cover; transition:transform .8s cubic-bezier(.2,.7,.2,1), filter .5s; }
+    .image-frame:hover img { transform:scale(1.055); filter:saturate(1.12); }
+    .image-frame:after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 45%,#080817c9); pointer-events:none; }
+    .image-caption { position:absolute; z-index:1; left:18px; right:18px; bottom:16px; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .game-gallery { display:grid; grid-template-columns:1.15fr .85fr; gap:16px; margin-top:26px; }
+    .game-gallery .image-frame:first-child img { min-height:360px; }
+    .game-gallery .image-frame:not(:first-child) img { min-height:360px; }
+    .image-credit { font-size:11px; color:#8586a8; margin-top:12px; }
+    .image-credit a { text-decoration:underline; text-decoration-color:#8b5cff; text-underline-offset:3px; }
+    .video-cover { background-size:cover; background-position:center; }
+    .video-cover:before { content:""; position:absolute; inset:0; background:linear-gradient(0deg,#080817a8,#08081722); z-index:0; }
+    .video-cover .video-play { transition:transform .25s, background .25s; }
+    .video-card:hover .video-play { transform:scale(1.12); background:#8b5cffaa; }
+    body {
+      margin: 0; color: var(--text); background:
+        radial-gradient(ellipse at 80% 10%, rgba(255,95,25,.18), transparent 34rem),
+        radial-gradient(ellipse at 10% 45%, rgba(112,49,190,.16), transparent 30rem), var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(16px); background: rgba(8,8,23,.84); border-bottom: 1px solid var(--line); }
+    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 950; letter-spacing: .08em; }
+    .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: linear-gradient(135deg,#6b35b5,#ff702f); box-shadow: 0 0 28px #ff702f55; font-size: 21px; }
+    .brand small { display: block; color: var(--muted); font-size: 9px; letter-spacing: .34em; font-weight: 700; }
+    .navlinks { display: flex; gap: 26px; color: #d9d8f1; font-size: 14px; }
+    .navlinks a:hover { color: var(--blue); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 20px; border-radius: 999px; font-weight: 800; font-size: 14px; border: 1px solid #ffffff20; background: linear-gradient(110deg,#713bd1,#d84b76 55%,#ff762e); box-shadow: 0 8px 28px #ff762e35; transition: transform .18s, filter .18s; }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.12); }
+    .btn.secondary { background: #ffffff09; box-shadow: none; border-color: var(--line); }
+    .hero { position: relative; overflow: hidden; padding: 94px 0 86px; border-bottom: 1px solid var(--line); }
+    .hero:before { content:""; position:absolute; width:500px; height:500px; right:-100px; top:-80px; border-radius:50%; background: radial-gradient(circle, #ff762e44, #7b39d533 40%, transparent 70%); filter: blur(12px); }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 42px; align-items: center; position: relative; }
+    .eyebrow { color: var(--blue); font-size: 11px; letter-spacing: .34em; font-weight: 900; text-transform: uppercase; }
+    h1 { margin: 15px 0 18px; font-size: clamp(44px,7vw,82px); line-height: .96; letter-spacing: -.055em; font-weight: 1000; }
+    .gradient-text { background: linear-gradient(95deg,#fff 4%,#8c74ff 48%,#ff4bd8 95%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { max-width: 550px; color: var(--muted); font-size: 17px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .note { color: #8d8eaf; font-size: 12px; margin-top: 18px; }
+    .art { min-height: 390px; position: relative; display: grid; place-items: center; }
+    .orb { animation: orbPulse 7s ease-in-out infinite alternate; width: min(360px,80vw); aspect-ratio: 1; border-radius: 50%; position: absolute; background: radial-gradient(circle at 35% 30%,#ffd08a 0,#ff8a38 12%,#7736c9 37%,#bd3b83 60%,#10102c 72%); filter: drop-shadow(0 0 50px #764bff55); opacity: .9; }
+    .ring { width: min(410px,90vw); aspect-ratio: 1; border: 1px solid #a58bff70; border-radius: 50%; position: absolute; transform: rotate(-22deg) scaleY(.48); box-shadow: 0 0 35px #4e3dff30; }
+    .ring.two { animation: ringSpin 22s linear infinite; transform: rotate(38deg) scaleY(.62); border-color: #ff59dc60; }
+    .character { animation: floatY 4.5s ease-in-out infinite; z-index: 1; position: relative; font-size: clamp(100px,17vw,180px); filter: drop-shadow(0 12px 20px #050510); }
+    .floating { animation: floatY 5s ease-in-out infinite; position: absolute; z-index: 2; border: 1px solid #ffffff24; background: #0d0d24d9; backdrop-filter: blur(10px); border-radius: 16px; padding: 13px 16px; font-size: 13px; box-shadow: 0 12px 40px #0005; }
+    .floating strong { display: block; color: white; font-size: 14px; }
+    .float-one { top: 12%; left: 0; animation-delay:-1s; } .float-two { right: -2%; bottom: 12%; animation-delay:-2.5s; }
+    @keyframes floatY { 0%,100% { translate:0 0; } 50% { translate:0 -10px; } }
+    @keyframes orbPulse { from { transform:scale(.96); filter:drop-shadow(0 0 35px #764bff44); } to { transform:scale(1.04); filter:drop-shadow(0 0 65px #764bff88); } }
+    @keyframes ringSpin { from { rotate:0deg; } to { rotate:360deg; } }
+    .hero .eyebrow { animation: fadeUp .7s both; }
+    .hero h1 { animation: fadeUp .8s .08s both; }
+    .hero .lead { animation: fadeUp .8s .16s both; }
+    .hero .actions { animation: fadeUp .8s .24s both; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    section { padding: 78px 0; }
+    .section-head { max-width: 650px; margin-bottom: 32px; }
+    h2 { font-size: clamp(30px,4vw,46px); line-height: 1.08; letter-spacing: -.04em; margin: 9px 0 14px; }
+    .muted { color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .card { background: linear-gradient(145deg,#171632cc,#0c0c20cc); border: 1px solid var(--line); border-radius: 20px; padding: 24px; min-height: 190px; }
+    .icon { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: #8b5cff24; border: 1px solid #8b5cff50; font-size: 22px; margin-bottom: 18px; }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 38px; align-items: center; }
+    .video-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .video-card { display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--line); border-radius:20px; background:linear-gradient(145deg,#171632cc,#0c0c20cc); transition:transform .18s,border-color .18s; }
+    .video-card:hover { transform:translateY(-4px); border-color:#a58bff90; }
+    .video-cover { min-height:180px; display:grid; place-items:center; position:relative; overflow:hidden; background:radial-gradient(circle at 25% 25%,#f24bd766,transparent 38%),radial-gradient(circle at 75% 70%,#287dff88,transparent 42%),linear-gradient(135deg,#19173d,#0b0b1b); }
+    .video-cover:after { content:""; position:absolute; inset:12px; border:1px solid #ffffff25; border-radius:14px; transform:rotate(-4deg); }
+    .video-play { z-index:1; width:58px; height:58px; display:grid; place-items:center; border-radius:50%; background:#ffffff20; border:1px solid #ffffff75; backdrop-filter:blur(8px); font-size:24px; box-shadow:0 0 30px #8b5cff66; }
+    .video-number { position:absolute; top:14px; left:14px; z-index:2; font-size:11px; letter-spacing:.12em; font-weight:900; color:#fff; background:#080817bb; border:1px solid #ffffff30; padding:5px 9px; border-radius:999px; }
+    .video-copy { padding:20px; }
+    .video-copy h3 { margin:0 0 8px; font-size:18px; }
+    .video-copy p { margin:0 0 16px; color:var(--muted); font-size:14px; }
+    .video-link { color:#b9a5ff; font-size:13px; font-weight:800; }
+    .panel-art { min-height: 290px; border-radius: 26px; border: 1px solid var(--line); background: radial-gradient(circle at 25% 25%,#f24bd744,transparent 35%), radial-gradient(circle at 75% 70%,#287dff55,transparent 40%), linear-gradient(135deg,#19173d,#0b0b1b); display: grid; place-items: center; font-size: 100px; position: relative; overflow: hidden; }
+    .panel-art:after { content:""; position:absolute; inset:20px; border:1px solid #ffffff20; border-radius:20px; transform:rotate(-7deg); }
+    .ticks { display: grid; gap: 13px; margin: 22px 0 28px; color: #e6e4ff; }
+    .ticks span:before { content:"✦"; color: var(--pink); margin-right: 10px; }
+    .cta { border: 1px solid #9e6bff60; border-radius: 28px; padding: 42px; text-align: center; background: radial-gradient(ellipse at 50% 0%,#8b5cff35,transparent 65%), #111027; }
+    .cta p { max-width: 580px; margin: 0 auto; color: var(--muted); }
+    .cta .actions { justify-content: center; }
+    footer { padding: 25px 0; border-top: 1px solid var(--line); color: #8889aa; font-size: 12px; }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    @media(max-width:800px) {
+      .navlinks { display:none; } .hero { padding: 64px 0 48px; } .hero-grid,.about-grid { grid-template-columns:1fr; }
+      .art { min-height: 300px; } .cards,.video-grid { grid-template-columns:1fr; } section { padding:58px 0; }
+      .float-one { left: 1%; } .float-two { right: 1%; } .cta { padding:32px 20px; } .game-gallery { grid-template-columns:1fr; } .game-gallery .image-frame img,.game-gallery .image-frame:first-child img,.game-gallery .image-frame:not(:first-child) img { min-height:230px; }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *:before, *:after { animation:none !important; transition:none !important; } .reveal { opacity:1; transform:none; } }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="halloween-strip"><span>🦇</span> Halloween event season · Train in the shadows <span>🎃</span></div>
+  <header>
+    <div class="wrap">
+      <nav aria-label="Main navigation">
+        <a class="brand" href="#home" aria-label="Bloodline home">
+          <span class="brand-mark">忍</span>
+          <span>SHIKKOTSU<small>BLOODLINE COMMUNITY</small></span>
+        </a>
+        <div class="navlinks">
+          <a href="#home">Home</a><a href="#about">About</a><a href="#features">Features</a><a href="#gameplay">Game</a><a href="#creator">TikTok</a><a href="#join">Join us</a>
+        </div>
+        <a class="btn" href="https://discord.gg/pEGSwg7kM" target="_blank" rel="noopener noreferrer">◉ Join Discord</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Roblox × Bloodline · Shikkotsu</div>
+          <div class="halloween-badge">🎃 Halloween special · Limited-time vibes</div>
+          <div class="eyebrow" style="display:inline-block;margin-top:12px;padding:6px 10px;border:1px solid #ffcf5a66;border-radius:999px;color:#ffcf5a;letter-spacing:.08em">✦ COMMUNITY RANKING · #4 ✦</div><h1>SHIKKOTSU<br><span class="gradient-text">RISE TOGETHER.</span></h1>
+          <p class="lead">Join Shikkotsu, a community dedicated to Bloodline on Roblox. Meet other players, share your progress, find teammates and grow stronger together.</p>
+          <div class="actions">
+            <a class="btn" href="https://discord.gg/pEGSwg7kM" target="_blank" rel="noopener noreferrer">◉ Join the Discord</a>
+            <a class="btn secondary" href="#features">Explore the community ↓</a>
+          </div>
+          <p class="note">A fan community made for players. Jump in and be part of the journey.</p>
+        </div>
+        <div class="art" aria-label="Decorative ninja-inspired artwork">
+          <div class="orb"></div><div class="ring"></div><div class="ring two"></div>
+          <div class="character" aria-hidden="true">忍</div>
+          <div class="floating float-one">⚡ <strong>Train together</strong><span class="muted">Share tips & progress</span></div>
+          <div class="floating float-two">🌌 <strong>Find your squad</strong><span class="muted">Meet fellow players</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Why join us?</div>
+          <h2>MORE THAN A GAME.<br><span class="gradient-text">A WHOLE COMMUNITY.</span></h2>
+          <p class="muted">Giveaways, game news, PvP and teamwork: find your people and make progress together in Bloodline.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="icon">🎁</div><h3>Giveaways</h3><p>Take part in community giveaways and keep an eye out for opportunities to win.</p></article>
+          <article class="card"><div class="icon">📢</div><h3>Game news & announcements</h3><p>Follow Bloodline news, important announcements and updates shared with the community.</p></article>
+          <article class="card"><div class="icon">⚔️</div><h3>PvP & team progression</h3><p>Challenge other players, practise PvP, help each other improve and progress together.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameplay">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">Inside the game</div>
+          <h2>ENTER THE WORLD OF <span class="gradient-text">BLOODLINES.</span></h2>
+          <p class="muted">A glimpse of the Roblox experience the Shikkotsu community plays, from exploration to quests and combat.</p>
+        </div>
+        <div class="game-gallery">
+          <a class="image-frame reveal" href="https://progameguides.com/roblox/bloodlines-codes/" target="_blank" rel="noopener noreferrer" aria-label="View Bloodlines gameplay screenshot source">
+            <img src="https://progameguides.com/wp-content/uploads/2024/04/bloodlines-in-game-screenshot.jpg" alt="Roblox Bloodlines gameplay screenshot showing a character resting by a campfire in a stone tower" loading="lazy">
+            <span class="image-caption">Explore · Prepare · Survive</span>
+          </a>
+          <a class="image-frame reveal" href="https://deltiasgaming.com/how-to-get-flame-scroll-in-bloodlines-roblox/" target="_blank" rel="noopener noreferrer" aria-label="View Bloodlines quest screenshot source">
+            <img src="https://static.deltiasgaming.com/2025/10/Claim-the-Flame-Scroll-Reward-Image-via-Roblox-Corporation.jpg" alt="Roblox Bloodlines quest scene with a player speaking to a boss character" loading="lazy">
+            <span class="image-caption">Quests · Bosses · Progression</span>
+          </a>
+        </div>
+        <p class="image-credit">Gameplay images: Pro Game Guides and Deltia’s Gaming. Select an image to visit its source.</p>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about-grid">
+        <div class="panel-art" aria-hidden="true">⚡ 忍 ⚡</div>
+        <div>
+          <div class="eyebrow">About the server</div>
+          <h2>YOUR NEXT<br><span class="gradient-text">ADVENTURE STARTS HERE.</span></h2>
+          <p class="muted">Shikkotsu is a Discord community dedicated to Bloodline on Roblox, a game inspired by the world of Naruto. Connect with fellow players, talk about the game and enjoy the journey together. The community is proud to have been ranked #4 among Bloodline Discord servers, according to its community.</p>
+          <div class="ticks">
+            <span>Join giveaways and follow community announcements</span>
+            <span>Keep up with Bloodline news and updates</span>
+            <span>Practise PvP, help other players and progress as a team</span>
+          </div>
+          <a class="btn" href="https://discord.gg/pEGSwg7kM" target="_blank" rel="noopener noreferrer">Join our community ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="creator">
+      <div class="wrap about-grid">
+        <div>
+          <div class="eyebrow">Community creator</div>
+          <h2>SHIKKOTSU ON <span class="gradient-text">TIKTOK.</span></h2>
+          <p class="muted">Discover videos made by a member of the community about Bloodline and the Shikkotsu server. Watch the content, support the creator and discover the community from another angle.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.tiktok.com/@lf9538?_r=1&amp;_t=ZG-9Axjij8kpl3" target="_blank" rel="noopener noreferrer">▶ Watch on TikTok</a>
+          </div>
+        </div>
+        <div class="panel-art" aria-hidden="true">▶ ✦ 🎬</div>
+      </div>
+      <div class="wrap" style="margin-top:34px">
+        <div class="section-head">
+          <div class="eyebrow">Featured videos</div>
+          <h2>WATCH. LEARN. <span class="gradient-text">LEVEL UP.</span></h2>
+          <p class="muted">Quick guides and updates from the Bloodline community. Select a video to open it on TikTok.</p>
+        </div>
+        <div class="video-grid">
+          <a class="video-card" href="https://vm.tiktok.com/ZGdX1vDqV/" target="_blank" rel="noopener noreferrer" aria-label="Watch TikTok: How to earn Candy during the Halloween event">
+            <div class="video-cover" style="background-image:url('https://progameguides.com/wp-content/uploads/2024/04/bloodlines-in-game-screenshot.jpg')"><span class="video-number">VIDEO 01 · EVENT GUIDE</span><span class="video-play">▶</span></div>
+            <div class="video-copy"><h3>How to Earn Candy</h3><p>Tips for earning Candy during the Halloween event in Bloodline.</p><span class="video-link">Watch video on TikTok ↗</span></div>
+          </a>
+          <a class="video-card" href="https://vm.tiktok.com/ZGdX1bT6V/" target="_blank" rel="noopener noreferrer" aria-label="Watch TikTok: Bloodline Halloween update">
+            <div class="video-cover" style="background-image:url('https://static.deltiasgaming.com/2025/10/Claim-the-Flame-Scroll-Reward-Image-via-Roblox-Corporation.jpg')"><span class="video-number">VIDEO 02 · GAME UPDATE</span><span class="video-play">▶</span></div>
+            <div class="video-copy"><h3>Halloween Update</h3><p>Discover the Halloween update and what it brings to the game.</p><span class="video-link">Watch video on TikTok ↗</span></div>
+          </a>
+          <a class="video-card" href="https://vm.tiktok.com/ZGdXJJ1PV/" target="_blank" rel="noopener noreferrer" aria-label="Watch TikTok: How to defeat the Gaara boss">
+            <div class="video-cover" style="background-image:url('https://static.deltiasgaming.com/2025/10/Claim-the-Flame-Scroll-Reward-Image-via-Roblox-Corporation.jpg')"><span class="video-number">VIDEO 03 · BOSS TUTORIAL</span><span class="video-play">▶</span></div>
+            <div class="video-copy"><h3>How to Beat the Gaara Boss</h3><p>A tutorial to help you take on and defeat the Gaara boss in Bloodline.</p><span class="video-link">Watch video on TikTok ↗</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="join">
+      <div class="wrap">
+        <div class="cta">
+          <div class="eyebrow">Your story begins now</div>
+          <h2>READY TO JOIN THE <span class="gradient-text">CLAN?</span></h2>
+          <p>Join giveaways, follow game news, find PvP partners and help each other become stronger in Bloodline.</p>
+          <div class="actions"><a class="btn" href="https://discord.gg/pEGSwg7kM" target="_blank" rel="noopener noreferrer">◉ Join the Discord server</a></div>
+          <p class="note">By joining, you agree to follow the server's rules and respect other members.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> Shikkotsu Community</span>
+      <span>Community fan site · Ranking information provided by the server owner · Not affiliated with Roblox or Naruto rights holders</span>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const progress = document.getElementById("scrollProgress");
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+    };
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add("visible"));
+    }
+  </script>
+</body>
+</html>
